@@ -16,7 +16,7 @@
             <input class="form-input" v-model="password" type="password" placeholder="Password" />
           </div>
           <div class="form-group">
-            <button class="btn btn-primary" v-on:click="login()" >login</button>
+            <button class="btn btn-primary" v-on:click="login()">login</button>
           </div>
         </div>
       </div>
@@ -25,22 +25,24 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
-  data(){
+  data() {
     return {
-      username: '',
-      password: '',
-    }
+      username: "",
+      password: ""
+    };
   },
 
-  methods:{
-    login(){
-      console.log(this.username)
-      console.log(this.password)
-      this.$store.dispatch('login', {username: this.username, password:this.password});
+  methods: {
+    async login() {
+      console.log(this.username);
+      console.log(this.password);
+      const result = await this.$store.dispatch('login', {username: this.username, password:this.password});
+      console.log(result);
     }
   }
-}
+};
 </script>
 
 <style scoped>

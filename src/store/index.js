@@ -11,12 +11,7 @@ export default new Vuex.Store({
   actions: {
     async login({}, data){
       console.log(data)
-      axios.post('localhost:3000/auth/login/', {username: 'user1', password:'123'}).then(result => {
-        console.log(result);
-      }, 
-      err => {
-        console.log(err)
-      })
+      return await axios.post("http://localhost:3000/auth/login/", data)
     }
   },
   modules: {
