@@ -40,7 +40,6 @@ export default {
       console.log(this.password);
       const result = await this.$store.dispatch('login', {username: this.username, password:this.password});
       console.log(result);
-      
     }
   }
 };
