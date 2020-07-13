@@ -39,6 +39,8 @@ export default {
       console.log(this.username);
       console.log(this.password);
       const result = await this.$store.dispatch('login', {username: this.username, password:this.password});
+      localStorage.setItem('token', result.data.accessToken);
+      this.$router.push('/mainpage');
       console.log(result);
     }
   }
