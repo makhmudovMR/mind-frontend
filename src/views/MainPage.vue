@@ -3,23 +3,7 @@
     <div class="my_container">
       <div class="columns">
         <div class="column col-12">
-          <ul class="tab">
-            <li class="tab-item active">
-              <a href="#">Home</a>
-            </li>
-            <li class="tab-item">
-              <a href="#">Notification</a>
-            </li>
-            <li class="tab-item">
-              <a href="#">News</a>
-            </li>
-            <li class="tab-item tab-action">
-              <div class="input-group input-inline">
-                <input class="form-input input-sm" type="text" />
-                <button class="btn btn-primary btn-sm input-group-btn">Search</button>
-              </div>
-            </li>
-          </ul>
+          <Navbar />
         </div>
       </div>
 
@@ -30,95 +14,17 @@
 
       <div class="columns" style="margin-top:10px">
         <div class="column col-4">
-          <div class="panel">
-            <div class="panel-header">
-              <center>
-                <figure
-                  class="avatar avatar-xl"
-                  data-initial="YZ"
-                  style="background-color: #5755d9;"
-                >
-                  <img
-                    src="https://yt3.ggpht.com/a/AATXAJzR7mGFIp9S5lGJf5DjFlqXBUklv_RL4LxA2A=s900-c-k-c0xffffffff-no-rj-mo"
-                  />
-                </figure>
-              </center>
-              <center>Magomed Makhmudov</center>
-              <div class="card-subtitle text-gray">
-                <center>@makhmudov</center>
-              </div>
-            </div>
-            <div class="panel-nav">
-              <hr />
-            </div>
-            <div class="panel-body">
-              <div style="margin-top:20px">
-                <p>
-                  <b>Age</b>: 22
-                </p>
-                <p>
-                  <b>Following</b>: 15
-                </p>
-                <p>
-                  <b>Followers</b>: 20
-                </p>
-              </div>
-            </div>
-            <div class="panel-footer">
-              <!-- buttons or inputs -->
-            </div>
-          </div>
+          <Panel/>
         </div>
         <div class="column col-8">
           <div class="panel">
             <div class="panel-body" style="padding: 20px">
-              <div class="input-group">
-                <span class="input-group-addon">Your Mind >></span>
-                <input type="text" class="form-input" placeholder="..." />
-                <button class="btn btn-primary input-group-btn">Submit</button>
-              </div>
+              <MindForm />
 
               <div style="margin-top:20px">
-                <div class="mind" style="margin-bottom:20px">
-                  <span>
-                    <figure class="avatar avatar-lg">
-                      <img src="https://cdn.onlinewebfonts.com/svg/img_106845.png" />
-                    </figure>
-                  </span>
-                  <span style="margin-left:10px">
-                    <b>Communist Party</b>
-                  </span>
-                  <blockquote>
-                    <p>The advance of technology is based on making it fit in so that you don't really even notice it, so it's part of everyday life.</p>
-                  </blockquote>
-                </div>
-
-                <div class="mind" style="margin-bottom:20px">
-                  <span>
-                    <figure class="avatar avatar-lg">
-                      <img src="https://cdn.onlinewebfonts.com/svg/img_106845.png" />
-                    </figure>
-                  </span>
-                  <span style="margin-left:10px">
-                    <b>Communist Party</b>
-                  </span>
-                  <blockquote>
-                    <p>The advance of technology is based on making it fit in so that you don't really even notice it, so it's part of everyday life.</p>
-                  </blockquote>
-                </div>
-
-                <div class="mind" style="margin-bottom:20px">
-                  <span>
-                    <figure class="avatar avatar-lg">
-                      <img src="https://cdn.onlinewebfonts.com/svg/img_106845.png" />
-                    </figure>
-                  </span>
-                  <span style="margin-left:10px">
-                    <b>Communist Party</b>
-                  </span>
-                  <blockquote>
-                    <p>The advance of technology is based on making it fit in so that you don't really even notice it, so it's part of everyday life.</p>
-                  </blockquote>
+                <Mind v-for="mind in this.minds" :item="mind"/>
+                <div v-for="mind in this.minds">
+                  {{mind}}
                 </div>
               </div>
             </div>
@@ -130,7 +36,28 @@
 </template>
 
 <script>
-export default {};
+import Mind from '../components/Mind';
+import Panel from '../components/Panel';
+import MindForm from '../components/MindForm';
+import Navbar from '../components/Navbar';
+
+export default {
+  data(){
+    return {
+      minds: [],
+    }
+  },
+
+  async mounted(){
+    console.log(localStorage.getItem('token'))
+    this.minds = (await this.$store.dispatch('getFollowingPost')).data;
+    console.log(this.minds)
+  },
+
+  watch:{},
+  methods:{},
+  components: {Mind, Panel, MindForm, Navbar},
+};
 </script>
 
 <style>
