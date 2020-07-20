@@ -17,6 +17,10 @@ export default new Vuex.Store({
 
     async getAuthUserInfo({}, data) {
       return await axios.get('api/content/getauthuserinfo', {headers: {token: localStorage.getItem('token')}});
+    },
+
+    async postMind({}, data){
+      return await axios.post('api/content/postmind', data, {headers: {token: localStorage.getItem('token')}});
     }
   },
 })

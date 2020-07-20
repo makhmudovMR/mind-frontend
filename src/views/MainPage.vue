@@ -42,7 +42,8 @@ export default {
   data() {
     return {
       minds: [],
-      user: null
+      user: null,
+      mindText: '',
     };
   },
 
@@ -55,7 +56,9 @@ export default {
   },
 
   watch: {},
-  methods: {},
+  methods: {
+    postMind(){}
+  },
   components: { Mind, Panel, MindForm, Navbar }
 };
 </script>
