@@ -14,7 +14,7 @@
 
       <div class="columns" style="margin-top:10px">
         <div class="column col-4">
-          <Panel/>
+          <Panel v-bind:user="this.user" />
         </div>
         <div class="column col-8">
           <div class="panel">
@@ -22,7 +22,7 @@
               <MindForm />
 
               <div style="margin-top:20px">
-                <Mind v-for="mind in this.minds" :item="mind"/>
+                <Mind v-for="mind in this.minds" :item="mind" />
               </div>
             </div>
           </div>
@@ -33,31 +33,30 @@
 </template>
 
 <script>
-import Mind from '../components/Mind';
-import Panel from '../components/Panel';
-import MindForm from '../components/MindForm';
-import Navbar from '../components/Navbar';
+import Mind from "../components/Mind";
+import Panel from "../components/Panel";
+import MindForm from "../components/MindForm";
+import Navbar from "../components/Navbar";
 
 export default {
-  data(){
+  data() {
     return {
       minds: [],
-      user: null,
-    }
+      user: null
+    };
   },
 
-  async mounted(){
-    console.log(localStorage.getItem('token'))
-    this.minds = (await this.$store.dispatch('getFollowingPost')).data;
-    console.log(this.minds)
-    this.user = (await this.$store.dispatch('getAuthUserInfo')).data;
+  async mounted() {
+    console.log(localStorage.getItem("token"));
+    this.minds = (await this.$store.dispatch("getFollowingPost")).data;
+    console.log(this.minds);
+    this.user = (await this.$store.dispatch("getAuthUserInfo")).data;
     console.log(user);
-    
   },
 
-  watch:{},
-  methods:{},
-  components: {Mind, Panel, MindForm, Navbar},
+  watch: {},
+  methods: {},
+  components: { Mind, Panel, MindForm, Navbar }
 };
 </script>
 
