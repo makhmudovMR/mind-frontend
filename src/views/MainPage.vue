@@ -23,9 +23,6 @@
 
               <div style="margin-top:20px">
                 <Mind v-for="mind in this.minds" :item="mind"/>
-                <div v-for="mind in this.minds">
-                  {{mind}}
-                </div>
               </div>
             </div>
           </div>
@@ -45,6 +42,7 @@ export default {
   data(){
     return {
       minds: [],
+      user: null,
     }
   },
 
@@ -52,6 +50,9 @@ export default {
     console.log(localStorage.getItem('token'))
     this.minds = (await this.$store.dispatch('getFollowingPost')).data;
     console.log(this.minds)
+    this.user = (await this.$store.dispatch('getAuthUserInfo')).data;
+    console.log(user);
+    
   },
 
   watch:{},

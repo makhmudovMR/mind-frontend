@@ -14,5 +14,9 @@ export default new Vuex.Store({
     async getFollowingPost({}, data){
       return await axios.get("/api/content/getfollowingpost", {headers: {token: localStorage.getItem('token')}});
     },
+
+    async getAuthUserInfo({}, data) {
+      return await axios.get('api/content/getauthuserinfo', {headers: {token: localStorage.getItem('token')}});
+    }
   },
 })
