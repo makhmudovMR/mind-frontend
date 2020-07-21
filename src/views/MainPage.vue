@@ -19,7 +19,7 @@
         <div class="column col-8">
           <div class="panel">
             <div class="panel-body" style="padding: 20px">
-              <MindForm />
+              <MindForm v-on:postMind="postMind" />
 
               <div style="margin-top:20px">
                 <Mind v-for="mind in this.minds" :item="mind" />
@@ -42,22 +42,33 @@ export default {
   data() {
     return {
       minds: [],
-      user: null,
+      user: {},
       mindText: '',
     };
   },
 
   async mounted() {
-    console.log(localStorage.getItem("token"));
-    this.minds = (await this.$store.dispatch("getFollowingPost")).data;
-    console.log(this.minds);
-    this.user = (await this.$store.dispatch("getAuthUserInfo")).data;
-    console.log(user);
+    this.updateData();
   },
 
-  watch: {},
+  watch: {
+
+  },
+
   methods: {
-    postMind(){}
+    async postMind(mind){
+      const data = {body:mind}
+      console.log(mind);
+      const result = await this.$store.dispatch('postMind', data)
+      console.log(result);
+      this.updateData();
+    },
+
+    async updateData(){
+      console.log('updateUser');
+      this.minds = (await this.$store.dispatch("getFollowingPost")).data;
+      this.user = (await this.$store.dispatch("getAuthUserInfo")).data;
+    }
   },
   components: { Mind, Panel, MindForm, Navbar }
 };
