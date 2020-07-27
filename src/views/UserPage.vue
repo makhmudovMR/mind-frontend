@@ -14,13 +14,13 @@
 
       <div class="columns" style="margin-top:10px">
         <div class="column col-4">
-          <Panel v-bind:user="this.user"/>
+          <Panel v-bind:user="this.user" v-bind:followed="this.followed" />
         </div>
         <div class="column col-8">
           <div class="panel">
             <div class="panel-body" style="padding: 20px">
               <div style="margin-top:20px">
-                <Mind v-for="mind in this.userMinds" v-bind:item="mind"/>
+                <Mind v-for="mind in this.userMinds" v-bind:item="mind" />
               </div>
             </div>
           </div>
@@ -31,37 +31,48 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 export default {
-    components: {
-        Panel: () => import ('../components/Panel'),
-        Mind: () => import('../components/Mind'),
-        Navbar: () => import('../components/Navbar'),
-    },
+  components: {
+    Panel: () => import("../components/Panel"),
+    Mind: () => import("../components/Mind"),
+    Navbar: () => import("../components/Navbar"),
+  },
 
-    props: ['userId'],
+  props: ["userId"],
 
-    data(){
-        return {
-            user: {
-                firstname: 'null',
-                lastname: 'null',
-                followingLength:'null',
-                followerLength:'null',
-            },
+  data() {
+    return {
+      user: {
+        firstname: "null",
+        lastname: "null",
+        followingLength: "null",
+        followerLength: "null",
+      },
 
-            userMinds: []
-        }
-    },
+      userMinds: [],
 
-    async mounted(){
-        console.log(this.id);
-        this.userMinds = (await this.$store.dispatch('getMindsByUserId', {userId: this.userId})).data
-        console.log(this.userMinds);
+      followed: null,
+    };
+  },
 
-        this.user = (await this.$store.dispatch('getUserInfo', {userId: this.userId})).data
-    }
-}
+  async mounted() {
+    this.userMinds = (
+      await this.$store.dispatch("getMindsByUserId", { userId: this.userId })
+    ).data;
+
+    this.user = (
+      await this.$store.dispatch("getUserInfo", { userId: this.userId })
+    ).data;
+
+    this.followed = (
+      await this.$store.dispatch("getRelation", {
+        userId: this.userId,
+      })
+    ).data;
+    console.log("laky", this.relation);
+  },
+};
 </script>
 
 <style>

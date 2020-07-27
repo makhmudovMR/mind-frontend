@@ -24,13 +24,14 @@
       </div>
     </li>
     <li v-if="!isMainPage">
-      <button class="btn" >Follow</button>
+      <button class="btn btn-primary" v-if="followed">Followed</button>
+      <button class="btn" v-else>Follow</button>
     </li>
   </ul>
 </template>
 
 <script>
 export default {
-  props: ["user", "isMainPage"]
+  props: ["user", "isMainPage", "followed"],
 };
 </script>

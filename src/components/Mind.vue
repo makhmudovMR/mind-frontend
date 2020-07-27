@@ -6,19 +6,22 @@
           src="https://icons-for-free.com/iconfiles/png/512/basic+white-galaxy-131994931874908144.png"
         />
       </figure>
-    </span> -->
+    </span>-->
     <span style="margin-left:10px">
-      <b><router-link to="/userpage/{{item.user.id}}">{{item.user.firstname}} {{item.user.lastname}}</router-link></b>
+      <b>
+        <router-link
+          :to="'/userpage/' + item.user.id"
+        >{{item.user.firstname}} {{item.user.lastname}}</router-link>
+      </b>
     </span>
     <blockquote>
       <p>{{item.body}}</p>
     </blockquote>
   </div>
-  
 </template>
 
 <script>
 export default {
-  props: ["item"]
+  props: ["item"],
 };
 </script>
