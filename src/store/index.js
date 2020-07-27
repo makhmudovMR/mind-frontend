@@ -16,11 +16,19 @@ export default new Vuex.Store({
     },
 
     async getAuthUserInfo({}, data) {
-      return await axios.get('api/content/getauthuserinfo', {headers: {token: localStorage.getItem('token')}});
+      return await axios.get('/api/content/getauthuserinfo', {headers: {token: localStorage.getItem('token')}});
     },
 
     async postMind({}, data){
-      return await axios.post('api/content/postmind', data, {headers: {token: localStorage.getItem('token')}});
+      return await axios.post('/api/content/postmind', data, {headers: {token: localStorage.getItem('token')}});
+    },
+
+    async getMindsByUserId({}, data) {
+      return await axios.post('/api/content/getmindsbyuserid', data, {headers: {token: localStorage.getItem('token')}})
+    },
+
+    async getUserInfo({}, data){
+      return await axios.post('/api/content/getuserinfo', data, {headers: {token: localStorage.getItem('token')}});
     }
   },
 })

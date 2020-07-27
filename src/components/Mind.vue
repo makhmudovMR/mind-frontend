@@ -8,7 +8,7 @@
       </figure>
     </span> -->
     <span style="margin-left:10px">
-      <b>{{item.user.firstname}} {{item.user.lastname}}</b>
+      <b><router-link to="/userpage/{{item.user.id}}">{{item.user.firstname}} {{item.user.lastname}}</router-link></b>
     </span>
     <blockquote>
       <p>{{item.body}}</p>

@@ -23,11 +23,14 @@
         <label class="label">{{user.followerLength}}</label>
       </div>
     </li>
+    <li v-if="!isMainPage">
+      <button class="btn" >Follow</button>
+    </li>
   </ul>
 </template>
 
 <script>
 export default {
-  props: ["user"]
+  props: ["user", "isMainPage"]
 };
 </script>

@@ -16,6 +16,20 @@
                 <button class="btn btn-primary btn-sm input-group-btn">Search</button>
               </div>
             </li>
+            <li class="tab-item tab-action">
+              <button v-on:click="logout">Logout</button>
+            </li>
         </ul>
     </div>
 </template>
+
+<script>
+export default {
+  methods:{
+    async logout(){
+      localStorage.removeItem('token');
+      this.$router.push('/login');
+    }
+  }
+}
+</script>

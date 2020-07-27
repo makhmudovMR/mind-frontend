@@ -14,15 +14,13 @@
 
       <div class="columns" style="margin-top:10px">
         <div class="column col-4">
-          <Panel v-bind:user="this.user" v-bind:isMainPage="true"/>
+          <Panel v-bind:user="this.user"/>
         </div>
         <div class="column col-8">
           <div class="panel">
             <div class="panel-body" style="padding: 20px">
-              <MindForm v-on:postMind="postMind" />
-
               <div style="margin-top:20px">
-                <Mind v-for="mind in this.minds" :item="mind" />
+                <Mind v-for="mind in this.userMinds" v-bind:item="mind"/>
               </div>
             </div>
           </div>
@@ -33,45 +31,37 @@
 </template>
 
 <script>
-import Mind from "../components/Mind";
-import Panel from "../components/Panel";
-import MindForm from "../components/MindForm";
-import Navbar from "../components/Navbar";
-
+import axios from 'axios';
 export default {
-  data() {
-    return {
-      minds: [],
-      user: {},
-      mindText: '',
-    };
-  },
-
-  async mounted() {
-    this.updateData();
-  },
-
-  watch: {
-
-  },
-
-  methods: {
-    async postMind(mind){
-      const data = {body:mind}
-      console.log(mind);
-      const result = await this.$store.dispatch('postMind', data)
-      console.log(result);
-      this.updateData();
+    components: {
+        Panel: () => import ('../components/Panel'),
+        Mind: () => import('../components/Mind'),
+        Navbar: () => import('../components/Navbar'),
     },
 
-    async updateData(){
-      console.log('updateUser');
-      this.minds = (await this.$store.dispatch("getFollowingPost")).data;
-      this.user = (await this.$store.dispatch("getAuthUserInfo")).data;
+    props: ['userId'],
+
+    data(){
+        return {
+            user: {
+                firstname: 'null',
+                lastname: 'null',
+                followingLength:'null',
+                followerLength:'null',
+            },
+
+            userMinds: []
+        }
     },
-  },
-  components: { Mind, Panel, MindForm, Navbar }
-};
+
+    async mounted(){
+        console.log(this.id);
+        this.userMinds = (await this.$store.dispatch('getMindsByUserId', {userId: this.userId})).data
+        console.log(this.userMinds);
+
+        this.user = (await this.$store.dispatch('getUserInfo', {userId: this.userId})).data
+    }
+}
 </script>
 
 <style>

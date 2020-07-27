@@ -37,6 +37,15 @@ const routes = [
       auth: true,
     },
   },
+  {
+    path: '/userpage/:userId',
+    name: 'UserPage',
+    props: true,
+    component: () => import('../views/UserPage'),
+    meta: {
+      auth: true,
+    },
+  },
 ];
 
 const router = new VueRouter({
