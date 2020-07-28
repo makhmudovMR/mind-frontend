@@ -4,12 +4,12 @@
       <li class="tab-item active">
         <router-link to="/mainpage">Home</router-link>
       </li>
-      <li class="tab-item">
+      <!-- <li class="tab-item">
         <a href="#">Notification</a>
       </li>
       <li class="tab-item">
         <a href="#">News</a>
-      </li>
+      </li> -->
       <li class="tab-item tab-action">
         <div class="input-group input-inline">
           <input class="form-input input-sm" type="text" />
@@ -17,7 +17,7 @@
         </div>
       </li>
       <li class="tab-item tab-action">
-        <button v-on:click="logout">Logout</button>
+        <button class="btn btn-primary" v-on:click="logout">Logout</button>
       </li>
     </ul>
   </div>
@@ -30,6 +30,14 @@ export default {
       localStorage.removeItem("token");
       this.$router.push("/login");
     },
+
+    async isAuth(){
+      if (localStorage.getItem('token') !== null){
+        return true
+      } else {
+        return false
+      }
+    }
   },
 };
 </script>

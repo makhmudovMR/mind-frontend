@@ -52,5 +52,11 @@ export default new Vuex.Store({
         headers: { token: localStorage.getItem("token") },
       });
     },
+
+    async getFollowers({}, data){
+      return await axios.post('/api/content/getfollowers', data, {
+        headers: {token: localStorage.getItem('token')}
+      })
+    }
   },
 });

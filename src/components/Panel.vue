@@ -18,7 +18,7 @@
       </div>
     </li>
     <li class="menu-item">
-      <a href="#">Followers</a>
+      <a href="#" v-on:click="emitFollowers">Followers</a>
       <div class="menu-badge">
         <label class="label">{{user.followerLength}}</label>
       </div>
@@ -40,6 +40,10 @@ export default {
       this.$store.dispatch("followToUser", { userId: this.user.id });
       this.$emit("updateData");
     },
+
+    emitFollowers(){
+      this.$emit('openFollowers');
+    }
   },
 };
 </script>

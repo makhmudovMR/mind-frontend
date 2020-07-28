@@ -14,7 +14,11 @@
 
       <div class="columns" style="margin-top:10px">
         <div class="column col-4">
-          <Panel v-bind:user="this.user" v-bind:isMainPage="true"/>
+          <Panel
+            v-bind:user="this.user"
+            v-bind:isMainPage="true"
+            v-on:openFollowers="handlerFollowers"
+          />
         </div>
         <div class="column col-8">
           <div class="panel">
@@ -23,6 +27,48 @@
 
               <div style="margin-top:20px">
                 <Mind v-for="mind in this.minds" :item="mind" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal" v-bind:class="{active:isModelActive}" id="modal-id">
+        <!-- вывести в отдельный компонент -->
+        <a href="#close" class="modal-overlay" aria-label="Close"></a>
+        <div class="modal-container">
+          <div class="modal-header">
+            <a
+              href="#close"
+              v-on:click="closeModal"
+              class="btn btn-clear float-right"
+              aria-label="Close"
+            ></a>
+            <div class="modal-title h5">Modal title</div>
+          </div>
+          <div class="modal-body">
+            <div class="content">
+              <div>
+
+                <div class="tile" v-for="f in this.followers">
+                  <div class="tile-icon">
+                    <div class="example-tile-icon">
+                      <i class="icon icon-file centered"></i>
+                    </div>
+                  </div>
+                  <div class="tile-content">
+                    <p class="tile-title">{{f.firstname}} {{f.lastname}}</p>
+                    <p
+                      class="tile-subtitle"
+                    >{{f.username}}
+                    <hr>
+                    </p>
+                  </div>
+                  <div class="tile-action">
+                    <button class="btn btn-primary">Join</button>
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>
@@ -43,7 +89,9 @@ export default {
     return {
       minds: [],
       user: {},
-      mindText: '',
+      mindText: "",
+      isModelActive: false,
+      followers: []
     };
   },
 
@@ -51,24 +99,34 @@ export default {
     this.updateData();
   },
 
-  watch: {
-
-  },
+  watch: {},
 
   methods: {
-    async postMind(mind){
-      const data = {body:mind}
+    async postMind(mind) {
+      const data = { body: mind };
       console.log(mind);
-      const result = await this.$store.dispatch('postMind', data)
+      const result = await this.$store.dispatch("postMind", data);
       console.log(result);
       this.updateData();
     },
 
-    async updateData(){
-      console.log('updateUser');
+    async updateData() {
+      console.log("updateUser");
       this.minds = (await this.$store.dispatch("getFollowingPost")).data;
       this.user = (await this.$store.dispatch("getAuthUserInfo")).data;
     },
+
+    async handlerFollowers() {
+      this.isModelActive = true;
+      this.followers = (
+        await this.$store.dispatch("getFollowers", { userId: this.user.id })
+      ).data;
+      console.log(this.followers);
+    },
+
+    closeModal() {
+      this.isModelActive = false;
+    }
   },
   components: { Mind, Panel, MindForm, Navbar }
 };
