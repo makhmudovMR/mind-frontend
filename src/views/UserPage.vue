@@ -14,7 +14,11 @@
 
       <div class="columns" style="margin-top:10px">
         <div class="column col-4">
-          <Panel v-bind:user="this.user" v-bind:followed="this.followed" />
+          <Panel
+            v-bind:user="this.user"
+            v-bind:followed="this.followed"
+            v-on:updateData="updateData"
+          />
         </div>
         <div class="column col-8">
           <div class="panel">
@@ -71,6 +75,24 @@ export default {
       })
     ).data;
     console.log("laky", this.relation);
+  },
+
+  methods: {
+    async updateData() {
+      this.userMinds = (
+        await this.$store.dispatch("getMindsByUserId", { userId: this.userId })
+      ).data;
+
+      this.user = (
+        await this.$store.dispatch("getUserInfo", { userId: this.userId })
+      ).data;
+
+      this.followed = (
+        await this.$store.dispatch("getRelation", {
+          userId: this.userId,
+        })
+      ).data;
+    },
   },
 };
 </script>

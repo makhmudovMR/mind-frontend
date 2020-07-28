@@ -35,10 +35,11 @@ export default {
   props: ["user", "isMainPage", "followed"],
 
   methods: {
-    buttonHandler(){
-      console.log('test')
-      this.$store.dispatch('')
-    }
-  }
+    buttonHandler() {
+      console.log("test");
+      this.$store.dispatch("followToUser", { userId: this.user.id });
+      this.$emit("updateData");
+    },
+  },
 };
 </script>
