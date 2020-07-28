@@ -24,8 +24,8 @@
       </div>
     </li>
     <li v-if="!isMainPage">
-      <button class="btn btn-primary" v-if="followed">Followed</button>
-      <button class="btn" v-else>Follow</button>
+      <button class="btn btn-primary" v-if="followed" v-on:click="buttonHandler">Followed</button>
+      <button class="btn" v-else v-on:click="buttonHandler">Follow</button>
     </li>
   </ul>
 </template>
@@ -33,5 +33,12 @@
 <script>
 export default {
   props: ["user", "isMainPage", "followed"],
+
+  methods: {
+    buttonHandler(){
+      console.log('test')
+      this.$store.dispatch('')
+    }
+  }
 };
 </script>

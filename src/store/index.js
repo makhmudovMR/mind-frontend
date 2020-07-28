@@ -46,5 +46,11 @@ export default new Vuex.Store({
         headers: { token: localStorage.getItem("token") },
       });
     },
+
+    async followToUser({}, data){
+      return await axios.post('/api/content/followtouser', data, {
+        headers: {token: localStorage.getItem("token") },
+      });
+    }
   },
 });
