@@ -12,7 +12,7 @@
       </a>
     </li>
     <li class="menu-item">
-      <a href="#">Following</a>
+      <a href="#" v-on:click="emitFollowing">Following</a>
       <div class="menu-badge">
         <label class="label">{{user.followingLength}}</label>
       </div>
@@ -43,6 +43,10 @@ export default {
 
     emitFollowers(){
       this.$emit('openFollowers');
+    },
+
+    emitFollowing(){
+      this.$emit('openFollowing')
     }
   },
 };

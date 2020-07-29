@@ -18,6 +18,8 @@
             v-bind:user="this.user"
             v-bind:followed="this.followed"
             v-on:updateData="updateData"
+            v-on:openFollowers="handlerFollowers"
+            v-on:openFollowing="handlerFollowing"
           />
         </div>
         <div class="column col-8">
@@ -30,6 +32,62 @@
           </div>
         </div>
       </div>
+
+      <div class="modal" v-bind:class="{active:isModelActive}" id="modal-id">
+        <!-- вывести в отдельный компонент -->
+        <a href="#close" class="modal-overlay" aria-label="Close"></a>
+        <div class="modal-container">
+          <div class="modal-header">
+            <a
+              href="#close"
+              v-on:click="closeModal"
+              class="btn btn-clear float-right"
+              aria-label="Close"
+            ></a>
+            <div class="modal-title h5">Modal title</div>
+          </div>
+          <div class="modal-body">
+            <div class="content">
+              <div>
+
+                <div class="tile" v-for="f in this.following">
+                  <div class="tile-icon">
+                    <div class="example-tile-icon">
+                      <i class="icon icon-file centered"></i>
+                    </div>
+                  </div>
+                  <div class="tile-content">
+                    <p class="tile-title">{{f.firstname}} {{f.lastname}}</p>
+                    <p
+                      class="tile-subtitle"
+                    >{{f.username}}
+                    <hr>
+                    </p>
+                  </div>
+                </div>
+
+                <div class="tile" v-for="f in this.followers">
+                  <div class="tile-icon">
+                    <div class="example-tile-icon">
+                      <i class="icon icon-file centered"></i>
+                    </div>
+                  </div>
+                  <div class="tile-content">
+                    <p class="tile-title">{{f.firstname}} {{f.lastname}}</p>
+                    <p
+                      class="tile-subtitle"
+                    >{{f.username}}
+                    <hr>
+                    </p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </template>
@@ -52,7 +110,13 @@ export default {
         lastname: "null",
         followingLength: "null",
         followerLength: "null",
+        following: [],
+        followers: [],
+
       },
+      isModelActive: false,
+      following:[],
+      followers: [],
 
       userMinds: [],
 
@@ -93,6 +157,24 @@ export default {
         })
       ).data;
     },
+
+    async handlerFollowers() {
+      this.following = []
+      this.isModelActive = true;
+      this.followers = (
+        await this.$store.dispatch("getFollowers", { userId: this.user.id })
+      ).data;
+    },
+
+    async handlerFollowing(){
+      this.followers = []
+      this.isModelActive = true
+      this.following = (await this.$store.dispatch('getFollowing', {userId: this.user.id})).data
+    },
+
+    closeModal() {
+      this.isModelActive = false;
+    }
   },
 };
 </script>

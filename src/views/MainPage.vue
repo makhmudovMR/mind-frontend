@@ -18,6 +18,7 @@
             v-bind:user="this.user"
             v-bind:isMainPage="true"
             v-on:openFollowers="handlerFollowers"
+            v-on:openFollowing="handlerFollowing"
           />
         </div>
         <div class="column col-8">
@@ -50,7 +51,7 @@
             <div class="content">
               <div>
 
-                <div class="tile" v-for="f in this.followers">
+                <div class="tile" v-for="f in this.following">
                   <div class="tile-icon">
                     <div class="example-tile-icon">
                       <i class="icon icon-file centered"></i>
@@ -64,8 +65,21 @@
                     <hr>
                     </p>
                   </div>
-                  <div class="tile-action">
-                    <button class="btn btn-primary">Join</button>
+                </div>
+
+                <div class="tile" v-for="f in this.followers">
+                  <div class="tile-icon">
+                    <div class="example-tile-icon">
+                      <i class="icon icon-file centered"></i>
+                    </div>
+                  </div>
+                  <div class="tile-content">
+                    <p class="tile-title">{{f.firstname}} {{f.lastname}}</p>
+                    <p
+                      class="tile-subtitle"
+                    >{{f.username}}
+                    <hr>
+                    </p>
                   </div>
                 </div>
 
@@ -91,7 +105,8 @@ export default {
       user: {},
       mindText: "",
       isModelActive: false,
-      followers: []
+      followers: [],
+      following: [],
     };
   },
 
@@ -117,11 +132,18 @@ export default {
     },
 
     async handlerFollowers() {
+      this.following = []
       this.isModelActive = true;
       this.followers = (
         await this.$store.dispatch("getFollowers", { userId: this.user.id })
       ).data;
       console.log(this.followers);
+    },
+
+    async handlerFollowing(){
+      this.followers = []
+      this.isModelActive = true
+      this.following = (await this.$store.dispatch('getFollowing', {userId: this.user.id})).data
     },
 
     closeModal() {
