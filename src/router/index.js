@@ -46,6 +46,15 @@ const routes = [
       auth: true,
     },
   },
+  {
+    path: '/chat/:chatId',
+    name: 'Chat',
+    props: true,
+    component: () => import('../views/ChatPage'),
+    meta: {
+      auth:true,
+    }
+  },
 ];
 
 const router = new VueRouter({

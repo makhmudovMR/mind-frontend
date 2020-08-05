@@ -63,6 +63,12 @@ export default new Vuex.Store({
       return await axios.post('/api/content/getfollowing', data, {
         headers: {token: localStorage.getItem('token')}
       })
+    },
+
+    async createChat({}, data){
+      return await axios.post('/api/content/createchat', data, {
+        headers: {token: localStorage.getItem('token')}
+      })
     }
   },
 });

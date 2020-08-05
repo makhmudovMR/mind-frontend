@@ -26,6 +26,8 @@
     <li v-if="!isMainPage">
       <button class="btn btn-primary" v-if="followed" v-on:click="buttonHandler">Followed</button>
       <button class="btn" v-else v-on:click="buttonHandler">Follow</button>
+      &nbsp;
+      <button class="btn btn-success" v-if="followed" v-on:click="chatHandler">Chat</button>
     </li>
   </ul>
 </template>
@@ -39,6 +41,10 @@ export default {
       console.log("test");
       this.$store.dispatch("followToUser", { userId: this.user.id });
       this.$emit("updateData");
+    },
+
+    chatHandler(){
+      this.$emit('createChat');
     },
 
     emitFollowers(){

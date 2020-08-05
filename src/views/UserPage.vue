@@ -20,6 +20,7 @@
             v-on:updateData="updateData"
             v-on:openFollowers="handlerFollowers"
             v-on:openFollowing="handlerFollowing"
+            v-on:createChat="handlerChat"
           />
         </div>
         <div class="column col-8">
@@ -112,7 +113,6 @@ export default {
         followerLength: "null",
         following: [],
         followers: [],
-
       },
       isModelActive: false,
       following:[],
@@ -170,6 +170,13 @@ export default {
       this.followers = []
       this.isModelActive = true
       this.following = (await this.$store.dispatch('getFollowing', {userId: this.user.id})).data
+    },
+
+    async handlerChat(){
+      const chatId = (await this.$store.dispatch('createChat', { userId: this.user.id})).data;
+      this.$router.push('/chat/' + chatId.id)
+      console.log(chatId);
+      
     },
 
     closeModal() {
