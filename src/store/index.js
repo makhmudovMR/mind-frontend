@@ -69,6 +69,24 @@ export default new Vuex.Store({
       return await axios.post('/api/content/createchat', data, {
         headers: {token: localStorage.getItem('token')}
       })
+    },
+
+    async loadMessages({}, data){
+      return await axios.post('/api/content/loadmessages', data, {
+        headers: {token: localStorage.getItem('token')}
+      })
+    },
+
+    async writeMessage({}, data){
+      return await axios.post('/api/content/writemessage', data, {
+        headers: {token: localStorage.getItem('token')}
+      })
+    },
+
+    async loadChats({}, data){
+      return await axios.post('/api/content/loadchats', data, {
+        headers: {token: localStorage.getItem('token')}
+      })
     }
   },
 });

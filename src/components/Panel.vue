@@ -27,7 +27,7 @@
       <button class="btn btn-primary" v-if="followed" v-on:click="buttonHandler">Followed</button>
       <button class="btn" v-else v-on:click="buttonHandler">Follow</button>
       &nbsp;
-      <button class="btn btn-success" v-if="followed" v-on:click="chatHandler">Chat</button>
+      <button class="btn btn-success" v-on:click="chatHandler">Chat</button>
     </li>
   </ul>
 </template>

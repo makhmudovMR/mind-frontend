@@ -55,7 +55,7 @@ export default {
         password: this.password
       });
       localStorage.setItem("token", result.data.accessToken);
-      this.$router.push("/mainpage");
+      this.$router.push("/");
       console.log(result);
     }
   }

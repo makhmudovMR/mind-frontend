@@ -5,14 +5,14 @@ import Home from "../views/Home.vue";
 Vue.use(VueRouter);
 
 const routes = [
-  {
-    path: "/",
-    name: "Home",
-    component: Home,
-    meta: {
-      auth: true,
-    },
-  },
+  // {
+  //   path: "/",
+  //   name: "Home",
+  //   component: Home,
+  //   meta: {
+  //     auth: true,
+  //   },
+  // },
   {
     path: "/login",
     name: "Login",
@@ -22,7 +22,7 @@ const routes = [
     },
   },
   {
-    path: "/mainpage",
+    path: "/",
     name: "MainPage",
     component: () => import("../views/MainPage"),
     meta: {

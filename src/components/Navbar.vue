@@ -2,7 +2,7 @@
   <div>
     <ul class="tab">
       <li class="tab-item active">
-        <router-link to="/mainpage">Home</router-link>
+        <router-link to="/">Home</router-link>
       </li>
       <!-- <li class="tab-item">
         <a href="#">Notification</a>
